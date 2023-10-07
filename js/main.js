@@ -21,7 +21,7 @@ const webOfScience = ["Social Sciences- Interdisciplinary", "Education & Educati
 const x = d3.scaleBand()
     .range([0, width])
     .domain(scopus)
-    .padding(0.01);
+    .padding(0.1);
 svg.append("g")
     .attr("transform", `translate(0, ${height})`)
 
@@ -29,7 +29,7 @@ svg.append("g")
     .selectAll("text")  
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
-            .attr("dy", ".15em")
+            .attr("dy", "-.25em")
             .attr("transform", "rotate(-90)" );
 
 
@@ -37,40 +37,18 @@ svg.append("g")
 const y = d3.scaleBand()
     .range([height, 0])
     .domain(webOfScience)
-    .padding(0.01);
+    .padding(0.1);
 svg.append("g")
     .attr("transform", "translate(0,30")
     .call(d3.axisLeft(y))
     
 // Build color scale
 const myColor = d3.scaleLinear()
-    .range(["white", "red"])
-    .domain([0, 400])
+    .range(["white", "darkblue"])
+    .domain([0, 350])
 
-  // Three function that change the tooltip when user hover / move / leave a cell
-  const mouseover = function(event,d) {
-    tooltip.style("opacity", 1)
-  }
+ // create a tooltip
 
-const mousemove = function (event, d) {
-    tooltip
-        .html( d.scopus + ':' + d.webOfScience + d.value)
-        .style("left", (event.x) / 2 + "px")
-        .style("top", (event.y) / 2 + "px")
-}
-const mouseleave = function (d) {
-    tooltip.style("opacity", 0)
-}
-
-// const tooltip = d3.select("#my_dataviz")
-// .append("div")
-// .style("opacity", 0)
-// .attr("class", "tooltip")
-// .style("background-color", "white")
-// .style("border", "solid")
-// .style("border-width", "2px")
-// .style("border-radius", "5px")
-// .style("padding", "5px")
 
 //Read the data
 d3.csv("data/heat.csv").then(function (data) {
@@ -83,7 +61,5 @@ d3.csv("data/heat.csv").then(function (data) {
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
         .style("fill", function (d) { return myColor(d.value) })
-        // .on("mouseover", mouseover)
-        // .on("mousemove", mousemove)
-        // .on("mouseleave", mouseleave)
+
 })
