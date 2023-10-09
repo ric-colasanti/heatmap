@@ -10,7 +10,7 @@ var webOfScience = []
 fetch("../data/confusion.csv")
   .then((res) => res.text())
   .then((text) => {
-    var data =[]// [["scopus","webOfScience","value"]]
+    var data = [["scopus","webOfScience","value"]]
     var allRows = text.split(/\r?\n|\r/);
     let topline = allRows[0].split(',')
     // console.log(topline);
@@ -39,7 +39,7 @@ fetch("../data/confusion.csv")
     }
     scopus.sort(function(a, b){return dictScopus[b] - dictScopus[a]}); 
     webOfScience.sort(function(a, b){return dictWebOf[b] - dictWebOf[a]}); 
-    
+    console.log(data);
     draw(data)
   })
   .catch((e) => console.error(e));
