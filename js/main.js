@@ -53,13 +53,18 @@ var draw = function (data) {
 
     svg.selectAll("rect")
         .data(data)//, function (d) { return d. + ':' + d.webOfScience; })
-        .enter()
+        .join()
         .append("rect")
         .attr("x", function (d) { return x(d[0]) })
         .attr("y", function (d) { return y(d[1]) })
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        .style("fill", function (d) { console.log(d[2]);return myColor(d[2]) })
-
+        .style("fill", function (d) {return myColor(d[2]) })
+        .update()
+        .attr("x", function (d) { return x(d[0]) })
+        .attr("y", function (d) { return y(d[1]) })
+        .attr("width", x.bandwidth())
+        .attr("height", y.bandwidth())
+        
     //})
 }
